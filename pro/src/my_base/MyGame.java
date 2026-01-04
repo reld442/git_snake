@@ -10,7 +10,7 @@ import my_ui_elements.EndButton;
 import my_ui_elements.StartButton;
 
 public class MyGame extends Game {
-
+//github commit
 	private MyContent content;
 
 	@Override

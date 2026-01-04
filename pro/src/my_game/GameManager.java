@@ -28,7 +28,7 @@ public class GameManager {
         this.scoreManager = scoreManager;
         this.gameBoard = gameBoard;
     }
-
+    
     public void startGame() {
         running = true;
         gameOver = false;
