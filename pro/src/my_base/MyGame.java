@@ -10,7 +10,7 @@ import my_ui_elements.EndButton;
 import my_ui_elements.StartButton;
 
 public class MyGame extends Game {
-//github commit
+	// github commit
 	private MyContent content;
 
 	@Override
@@ -94,3 +94,4 @@ public class MyGame extends Game {
 	}
 
 }
+// this comment i added to demonstrate git use

@@ -21,6 +21,8 @@ public class Snake {
 
     private Direction direction = Direction.RIGHT;
 
+    private Direction nextDirection = Direction.RIGHT;
+
     // צבע אחיד לכל החוליות
     private final Color bodyColor = Color.GRAY;
 
@@ -84,19 +86,18 @@ public class Snake {
     }
 
     public void setDirection(Direction dir) {
-        if (dir == null) {
+        // לא מאפשרים כיוון הפוך ביחס לכיוון הנוכחי או לכיוון שמתוכנן לטיק הבא
+        if (isOpposite(dir, direction) || isOpposite(dir, nextDirection)) {
             return;
         }
+        nextDirection = dir;
+    }
 
-        // אם זה הכיוון ההפוך לגמרי – מתעלמים
-        if ((this.direction == Direction.UP && dir == Direction.DOWN) ||
-                (this.direction == Direction.DOWN && dir == Direction.UP) ||
-                (this.direction == Direction.LEFT && dir == Direction.RIGHT) ||
-                (this.direction == Direction.RIGHT && dir == Direction.LEFT)) {
-            return;
-        }
-
-        this.direction = dir;
+    private boolean isOpposite(Direction a, Direction b) {
+        return (a == Direction.LEFT && b == Direction.RIGHT) ||
+                (a == Direction.RIGHT && b == Direction.LEFT) ||
+                (a == Direction.UP && b == Direction.DOWN) ||
+                (a == Direction.DOWN && b == Direction.UP);
     }
 
     // צעד אחד קדימה
@@ -104,7 +105,9 @@ public class Snake {
         if (bodyCells.isEmpty())
             return false;
 
-        // ראש נוכחי
+        // הכיוון של הטיק הזה – מה שהצטבר ב-nextDirection
+        direction = nextDirection;
+
         Point head = bodyCells.get(0);
         Point newHead = new Point(head);
 
@@ -123,7 +126,6 @@ public class Snake {
                 break;
         }
 
-        // התנגשות בקיר – חוזרים false
         if (!board.inBounds(newHead.y, newHead.x)) {
             return false;
         }
